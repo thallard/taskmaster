@@ -1,2 +1,2 @@
 # taskmaster
-42 | Job Control Daemon with CLI
+42 | A simple job control daemon with CLI
