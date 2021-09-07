@@ -4,8 +4,8 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
-	"log"
 	"os"
+	"regexp"
 )
 
 type Service struct {
@@ -21,25 +21,66 @@ type Service struct {
 	stderr int
 }
 
+//func ParseConfigFile(configFile string) {
+//	// Open config file
+//	file, err := os.Open(configFile)
+//	if err != nil {
+//		log.Fatal(err)
+//	}
+//	defer file.Close()
+//
+//	// Read line by line
+//	scanner := bufio.NewScanner(file)
+//	for true {
+//		// Check for a new service and it options
+//		if CreateNewService(&scanner) == nil {
+//			break
+//		}
+//		scanner.Scan()
+//		if len(scanner.Text()) == 0 {
+//			break
+//		}
+//	}
+//}
 
 
-func ParseConfigFile(configFile string) {
-	// Open config file
+// Return the number of services in the configuration file
+func GetNumberOfServices(configFile string) int {
+	var number int = 0
+
+	// Open the file
 	file, err := os.Open(configFile)
 	if err != nil {
-		log.Fatal(err)
+		FatalError(err)
 	}
-	defer file.Close()
 
 	// Read line by line
 	scanner := bufio.NewScanner(file)
-	for true {
-		// Check for a new service and it options
-		if CreateNewService(&scanner) == nil {
-			break
+	for scanner.Scan() {
+		// Search for the [name] pattern with regex
+		ret, err := regexp.MatchString("^\\[[a-z_-]*\\]$", scanner.Text())
+		if err != nil {
+			FatalError(err)
 		}
-		fmt.Println("youhouuuu")
+		if ret {
+			number++
+		}
 	}
+
+	// Close file and handle error
+	err = file.Close()
+	if err != nil {
+		FatalError(err)
+	}
+	return number
+}
+
+func ParseConfigFile(configFile string) []*Service {
+	var services = make([]*Service, GetNumberOfServices(configFile))
+
+	var service *Service = new(Service)
+	services[0] = service
+	return services
 }
 
 func main() {
