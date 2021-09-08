@@ -1,4 +1,4 @@
-package main
+package common
 
 import (
 	"os"
@@ -7,20 +7,20 @@ import (
 )
 
 type Service struct {
-	name string
-	numprocs int
-	workingdir string
-	exitcodes []int
+	name         string
+	numprocs     int
+	workingdir   string
+	exitcodes    []int
 	startretries int
-	starttime int
-	stoptime int
-	stopsignal string
-	umask string
-	chmod string
-	autostart bool
-	autorestart bool
-	stdout string
-	stderr string
+	starttime    int
+	stoptime     int
+	stopsignal   string
+	umask        string
+	chmod        string
+	autostart    bool
+	autorestart  bool
+	stdout       string
+	stderr       string
 }
 
 func GetCurrentTime() string {

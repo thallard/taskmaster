@@ -3,14 +3,15 @@ package main
 import (
 	"flag"
 	"fmt"
+	"taskmaster/srcs/common"
 )
 
 func main() {
-	InitLogger()
+	common.InitLogger()
 
 	flag.Parse()
 	if len(flag.Args()) != 1 {
-		Info.Println("Usage: taskmaster <config_path>")
+		common.Info.Println("Usage: taskmaster <config_path>")
 		return
 	}
 
@@ -20,8 +21,8 @@ func main() {
 	// Warning.Println("There is something you need to know about")
 	// Error.Println("Something has failed")
 
-	var services []*Service = ParseConfigFile(flag.Arg(0))
-	fmt.Println("Configuration file done.")
+	var services []*common.Service = common.ParseConfigFile(flag.Arg(0))
+
 	fmt.Println(services[0])
 	fmt.Println(services[1])
 	fmt.Println(services[2])
