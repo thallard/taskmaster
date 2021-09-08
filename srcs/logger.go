@@ -1,48 +1,39 @@
 package main
 
 import (
-	"fmt"
-	"os")
+	"io"
+	"log"
+	"os"
+)
+
+var (
+	Trace   *log.Logger
+	Info    *log.Logger
+	Warning *log.Logger
+	Error   *log.Logger
+)
 
 func FatalError(err error) {
-	CreateFileIfNotExists("../logs")
-	file, _ := os.Open("../logs")
-	file.WriteString("taskmaster : FATAL_ERROR -> " + err.Error())
-	check(file.Close())
+	Error.Println(err.Error())
 	os.Exit(2)
 }
 
-// Write a basic action/operation in log file
-func Log(message string) {
-	CreateFileIfNotExists("../logs")
-	date := GetCurrentTime()
-	fmt.Println("ici")
-	file, err := os.OpenFile("./../logs", os.O_WRONLY, 0644)
-	//fmt.Println(err.Error())
-	check(err)
-	fmt.Println("ici")
-	write, _ := file.WriteString(date + " : " + message)
-	fmt.Println(write)
-	check(err)
-	fmt.Println("ici")
-	check(file.Close())
+func InitLogger() {
+	errors, err := os.OpenFile("error_logs.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		FatalError(err)
+	}
+
+	commons, err := os.OpenFile("logs.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		FatalError(err)
+	}
+
+	commons_outputs := io.MultiWriter(commons, os.Stdout)
+	errors_outputs := io.MultiWriter(errors, os.Stderr)
+
+	Trace = log.New(commons_outputs, "TRACE: ", log.Ldate|log.Ltime|log.Lmicroseconds)
+	Info = log.New(commons_outputs, "INFO: ", log.Ldate|log.Ltime|log.Lmicroseconds)
+	Warning = log.New(errors_outputs, "WARNING: ", log.Ldate|log.Ltime|log.Lmicroseconds)
+	Error = log.New(errors_outputs, "ERROR: ", log.Ldate|log.Ltime|log.Lmicroseconds)
 }
-
-// Write a warning in log file
-func LogWarning(warning string) {
-	CreateFileIfNotExists("../logs")
-
-
-}
-
-// Write an error in log file
-func LogError() {
-	CreateFileIfNotExists("../logs")
-}
-
-// Report a crash in log file and kill the daemon
-func LogCrash() {
-	CreateFileIfNotExists("../logs")
-}
-
-
