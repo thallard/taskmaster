@@ -20,13 +20,23 @@ func FatalError(err error) {
 }
 
 func InitLogger() {
+	// Make logs directory
+	err := os.MkdirAll("../logs", 0666)
+	if err != nil {
+		println(err)
+	}
+
 	//Open files
 	errors, err := os.OpenFile("../logs/error_logs.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
-	check(err)
+	if err != nil {
+		println(err.Error())
+	}
 
 	//Open files
 	commons, err := os.OpenFile("../logs/logs.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
-	check(err)
+	if err != nil {
+		println(err.Error())
+	}
 
 	//Duplicate output
 	commonsOutputs := io.MultiWriter(commons, os.Stdout)
