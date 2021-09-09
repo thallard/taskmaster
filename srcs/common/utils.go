@@ -34,7 +34,7 @@ func GetCurrentTime() string {
 	return date
 }
 
-func check(err error) {
+func Check(err error) {
 	if err != nil {
 		FatalError(err)
 	}

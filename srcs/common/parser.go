@@ -15,7 +15,7 @@ func ParseConfigFile(configFile string) []*Service {
 
 	// Open the file
 	file, err := os.Open(configFile)
-	check(err)
+	Check(err)
 
 	scanner := bufio.NewScanner(file)
 	scanner.Scan()
@@ -29,24 +29,20 @@ func ParseConfigFile(configFile string) []*Service {
 
 		// Search for the [name] pattern to create a new service
 		ret, err := regexp.MatchString("^\\[[a-z_-]*\\]$", scanner.Text())
-		check(err)
+		Check(err)
 
 		if ret {
 			var service *Service = new(Service)
 			for true {
 				scanner.Scan()
 
-				if len(scanner.Text()) == 0 {
-					break
-				}
+				if len(scanner.Text()) == 0 { break }
 				// Search for an incorrect option pattern
 				ret, err = regexp.MatchString("^\\s*[a-z]+\\s*=\\s*[^\\s]+[\\s]*$", scanner.Text())
-				check(err)
+				Check(err)
 
 				// Quit the loop option if pattern is [name]
-				if ret == false {
-					break
-				}
+				if ret == false { break }
 
 				// Split by spaces and fill options
 				FillServiceOptions(strings.Fields(scanner.Text()), &service)
@@ -69,14 +65,14 @@ func GetNumberOfServices(configFile string) int {
 
 	// Open the file
 	file, err := os.Open(configFile)
-	check(err)
+	Check(err)
 
 	// Read line by line
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		// Search for the [name] pattern with regex
 		ret, err := regexp.MatchString("^\\[[a-z_-]*\\]$", scanner.Text())
-		check(err)
+		Check(err)
 
 		// Increment the number of services if regex match
 		if ret {
@@ -86,7 +82,7 @@ func GetNumberOfServices(configFile string) int {
 
 	// Close file and handle error
 	err = file.Close()
-	check(err)
+	Check(err)
 	return number
 }
 
@@ -108,7 +104,7 @@ func FillServiceOptions(config []string, service **Service) {
 		(*service).workingdir = config[2]
 	case "startretries":
 		value, err := strconv.Atoi(config[2])
-		check(err)
+		Check(err)
 		(*service).startretries = value
 	}
 }
