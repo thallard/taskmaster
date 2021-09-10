@@ -30,6 +30,15 @@
 *.exe
 *.out
 *.app
-
 *.pdf
 *.conf
+
+.idea/*
+.vscode/*
+
+# Hide log file and binary
+cli/srcs/*.o
+daemon/taskmasterctl
+
+daemon/srcs/*.o
+daemon/taskmasterdaemon
