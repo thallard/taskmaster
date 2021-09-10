@@ -15,7 +15,11 @@
 # vendor/
 
 .idea/*
+.vscode/*
 
 # Hide log file and binary
-*.log
-logger
+./cli/srcs/*.o
+./daemon/taskmastercli
+
+./daemon/srcs/*.o
+./daemon/taskmasterdaemon
