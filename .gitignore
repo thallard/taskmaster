@@ -18,8 +18,8 @@
 .vscode/*
 
 # Hide log file and binary
-./cli/srcs/*.o
-./daemon/taskmastercli
+cli/srcs/*.o
+daemon/taskmasterctl
 
-./daemon/srcs/*.o
-./daemon/taskmasterdaemon
+daemon/srcs/*.o
+daemon/taskmasterdaemon

@@ -2,8 +2,8 @@ CC			=	clang++
 RM			=	rm -rf
 NAME		=	taskmasterdaemon
 
-SRCS_DIR	=	srcs
-INCS_DIR	=	includes
+SRCS_DIR	=	./srcs
+INCS_DIR	=	./includes
 
 SRCS		:=	$(wildcard ./$(SRCS_DIR)/*.cpp)
 INCS		=	$(wildcard ./$(INCS_DIR)/*.hpp)
