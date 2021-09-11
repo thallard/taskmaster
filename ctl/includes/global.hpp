@@ -25,8 +25,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 
-#include "JsonObject.hpp"
-#include "JsonReader.hpp"
+#include "json.hpp"
 
 //------------
 // MACROS :
