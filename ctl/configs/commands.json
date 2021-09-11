@@ -1,0 +1,14 @@
+{
+    "help": {
+        "description": "help <command>",
+        "enum_value": 0,
+        "help": {
+            "description": "help <command>",
+            "enum_value": 0
+        }
+    },
+    "test": {
+        "description": "help <command>",
+        "enum_value": 0
+    }
+}
