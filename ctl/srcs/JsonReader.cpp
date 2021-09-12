@@ -1,50 +1,38 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   JsonReader.cpp                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: gbaud <gbaud@student.42lyon.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/11 04:24:36 by gbaud             #+#    #+#             */
-/*   Updated: 2021/09/11 07:36:59 by gbaud            ###   ########lyon.fr   */
-/*                                                                            */
-/* ************************************************************************** */
+//
+// Created by Guillaume on 11/09/2021.
+//
 
 #include "JsonReader.hpp"
 
-JsonObject JsonReader::fileParser(std::string path) {
+/**
+ * @brief Extract json object from file
+ * @param path
+ * @return json object
+ */
+json::jobject JsonReader::parseFile(std::string path) {
     std::string content;
-
     try { content = getFileContent(path); }
-    catch (std::exception e) { throw new FileNotExistException(); }
-    return (JsonReader::stringParser(content));
+    catch (const std::exception &e) { throw new FileNotExistException(); }
+    return (parseString(content));
 }
 
-JsonObject JsonReader::stringParser(std::string json_str) {
-    JsonObject<std::map<std::string, JsonObject>> root;
-
-    
-    std::cout << "JsonReader content = " << json_str << std::endl;
-    tokenize(json_str);
-    return ;
+/**
+ * @brief Extract json object from string
+ * @param json_str
+ * @return json object
+ */
+json::jobject JsonReader::parseString(std::string json_str) {
+    return (json::jobject::parse(json_str));
 }
 
-std::vector<std::string> JsonReader::tokenize(std::string json_str) {
-    std::vector<std::string> result;
-    
-    remove_unquoted_spaces(json_str);
-    std::cout << json_str << std::endl;
-    for (auto i = json_str.begin(); i != json_str.end(); i++) {
-        if (*i == '{')
-            std::cout << "create map" << std::endl;
-        else if (*i == '}')
-            std::cout << "leave map" << std::endl;
-        else if (*i == '[')
-            std::cout << "create vector" << std::endl;
-        else if (*i == ']')
-            std::cout << "leave vector" << std::endl;
-    }
-    return (result);
+/**
+ * @brief Serialize a json object
+ * @param json_object
+ * @return corresponding string
+ */
+std::string JsonReader::stringify(json::jobject json_object) {
+    return ((std::string)json_object);
 }
 
-const char* FileNotExistException::what() const throw() { return ("JsonReader Error: File not found"); }
+// Exception class
+const char* FileNotExistException::what() const throw() { return ("JsonReader Error: File not found or Operation not permitted"); }

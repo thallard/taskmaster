@@ -46,6 +46,19 @@ void interpret_command(std::vector<std::string> tokens) {
 int main() {
     int sockfd;
     sockaddr_in addr;
+
+    addr.sin_family = AF_INET; // Adress ip only
+    addr.sin_addr.s_addr = htonl(2130706433); // 127.0.0.1
+    addr.sin_port = htons(TUNNEL_PORT); // Defined in global.h
+
+    if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0) // Create socket
+        fatal(ERR_FATAL);
+    if ((bind(sockfd, (sockaddr*)&addr, sizeof(addr))) < 0) // Bind socket to address + port
+        fatal(ERR_FATAL);
+    if ((listen(sockfd, 0)) < 0) // Start communication
+        fatal(ERR_FATAL);
+    std::cout << "Communication open :)" << std::endl;
+
     // std::string command;
     // std::vector<std::string> tokens;
 
@@ -58,20 +71,9 @@ int main() {
     //         interpret_command(split(command, ' '));
     // }
 
-    JsonReader::fileParser("./configs/commands.json");
+//    json::jobject object = JsonReader::parseFile("../../configs/commands.json");
+//    std::cout << json::jobject::parse(object.get("help")).get("description") << std::endl;
+//    std::cout << JsonReader::stringify(object) << std::endl;
 
-    addr.sin_family = AF_INET; // Adress ip only
-    addr.sin_addr.s_addr = htonl(2130706433); // 127.0.0.1
-    addr.sin_port = htons(LISTEN_PORT); // Defined in global.h
-    
-    if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0) // Create socket
-        fatal(ERR_FATAL);
-    if ((bind(sockfd, (sockaddr*)&addr, sizeof(addr))) < 0) // Bind socket to address + port
-        fatal(ERR_FATAL);
-    if ((listen(sockfd, 0)) < 0) // Start communication
-        fatal(ERR_FATAL);
-    
-    std::cout << "Communication open :)" << std::endl;
-        
     return (0);
 }

@@ -25,7 +25,15 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 
+//-----------
+// LIBRARY (parsing) :
+//-----------
 #include "json.hpp"
+
+//-----------
+// CLASS :
+//-----------
+#include "JsonReader.hpp"
 
 //------------
 // MACROS :
@@ -35,8 +43,7 @@
 //------------
 // DEFINES
 //------------
-#define LISTEN_PORT 4
-#define RECEIVE_PORT 6
+#define TUNNEL_PORT 4
 
 #define ERR_FATAL "Fatal error"
 
