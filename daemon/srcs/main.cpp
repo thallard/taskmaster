@@ -115,18 +115,48 @@ int main()
 //        }
 //    }
 
-    skeleton_daemon();
-    while (1)
-    {
-        //TODO: Insert daemon code here.
-        syslog (LOG_NOTICE, "First daemon started.");
-        dprintf(1, "First daemon started.");
-        sleep (1000);
-        break;
-    }
+    TunnelTCP tunnel;
 
-    syslog (LOG_NOTICE, "First daemon terminated.");
-    closelog();
+    if (tunnel.init())
+		fatal("=> TunnelTCP Error Exit");
 
+	std::cout << "start thread" << std::endl;
+	tunnel.start();
+	sleep(5);
+	tunnel.stop();
+	std::cout << "stopped thread" << std::endl;
+	sleep(3);
+	std::cout << "start thread" << std::endl;
+	tunnel.start();
+	sleep(5);
+	tunnel.stop();
+	std::cout << "stopped thread" << std::endl;
+	sleep(3);
+	std::cout << "start thread" << std::endl;
+	tunnel.start();
+	sleep(5);
+	tunnel.stop();
+	std::cout << "stopped thread" << std::endl;
+	sleep(3);
+	std::cout << "start thread" << std::endl;
+	tunnel.start();
+	sleep(5);
+	std::cout << "end" << std::endl;
+
+
+//    skeleton_daemon();
+//    while (1)
+//    {
+//        //TODO: Insert daemon code here.
+//        syslog (LOG_NOTICE, "First daemon started.");
+//        dprintf(1, "First daemon started.");
+//        sleep (1000);
+//        break;
+//    }
+//
+//    syslog (LOG_NOTICE, "First daemon terminated.");
+//    closelog();
+//
     return EXIT_SUCCESS;
+    skeleton_daemon();
 }

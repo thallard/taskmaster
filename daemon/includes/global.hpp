@@ -13,6 +13,13 @@
 #ifndef GLOBAL_HPP
 #define GLOBAL_HPP
 
+//------------
+// DEFINES
+//------------
+#define TUNNEL_PORT 8009
+#define BUFFER_SIZE 4096
+#define ERR_FATAL "Fatal error"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -22,25 +29,14 @@
 #include <syslog.h>
 // TODO Faire du c++ et pas du c <3
 
-#include <iostream>
+#include <thread>
 #include <cstring>
-
+#include <iostream>
 #include <sys/socket.h>
 #include <netinet/in.h>
 
-#ifdef _WIN32
-#include <ws2tcpip.h>
-#endif
-
 #include "TunnelTCP.hpp"
 
-
-//------------
-// DEFINES
-//------------
-#define TUNNEL_PORT 4
-#define BUFFER_SIZE 4096
-#define ERR_FATAL "Fatal error"
 
 
 #endif
