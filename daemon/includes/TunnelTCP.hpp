@@ -13,7 +13,8 @@ typedef enum e_tunnel_tcp_error {
 	SOCKET_ERR,
     BIND_ERR,
     LISTEN_ERR,
-	ACCEPT_ERR
+	ACCEPT_ERR,
+	SOCKOPT_ERR
 } t_tunnel_tcp_error;
 
 class TunnelTCP {
@@ -26,9 +27,11 @@ public:
     e_tunnel_tcp_error init();
     void start();
     void stop();
+	void restart();
 	void run();
 
     ~TunnelTCP();
+
 private:
     // Private functions
     t_tunnel_tcp_error setError(std::string error, t_tunnel_tcp_error error_type);

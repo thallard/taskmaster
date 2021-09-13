@@ -16,7 +16,7 @@
 //------------
 // DEFINES
 //------------
-#define TUNNEL_PORT 8009
+#define TUNNEL_PORT 8001
 #define BUFFER_SIZE 4096
 #define ERR_FATAL "Fatal error"
 
@@ -24,19 +24,20 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <signal.h>
+
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <syslog.h>
 // TODO Faire du c++ et pas du c <3
 
 #include <thread>
+#include <vector>
+#include <csignal>
 #include <cstring>
 #include <iostream>
 #include <sys/socket.h>
 #include <netinet/in.h>
 
 #include "TunnelTCP.hpp"
-
-
 
 #endif

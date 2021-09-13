@@ -120,28 +120,15 @@ int main()
     if (tunnel.init())
 		fatal("=> TunnelTCP Error Exit");
 
-	std::cout << "start thread" << std::endl;
 	tunnel.start();
 	sleep(5);
-	tunnel.stop();
-	std::cout << "stopped thread" << std::endl;
-	sleep(3);
-	std::cout << "start thread" << std::endl;
-	tunnel.start();
+	tunnel.restart();
 	sleep(5);
-	tunnel.stop();
-	std::cout << "stopped thread" << std::endl;
-	sleep(3);
-	std::cout << "start thread" << std::endl;
-	tunnel.start();
+	tunnel.restart();
 	sleep(5);
-	tunnel.stop();
-	std::cout << "stopped thread" << std::endl;
-	sleep(3);
-	std::cout << "start thread" << std::endl;
-	tunnel.start();
+	tunnel.restart();
 	sleep(5);
-	std::cout << "end" << std::endl;
+	std::cout << "[Main]: Check if all is working normaly" << std::endl;
 
 
 //    skeleton_daemon();
@@ -157,6 +144,8 @@ int main()
 //    syslog (LOG_NOTICE, "First daemon terminated.");
 //    closelog();
 //
-    return EXIT_SUCCESS;
-    skeleton_daemon();
+
+	while (1); // Infinite loop
+	return EXIT_SUCCESS;
+	skeleton_daemon();
 }
