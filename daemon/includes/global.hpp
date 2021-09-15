@@ -16,7 +16,7 @@
 //------------
 // DEFINES
 //------------
-#define TUNNEL_PORT 8001
+#define TUNNEL_PORT 8081
 #define BUFFER_SIZE 4096
 #define ERR_FATAL "Fatal error"
 
@@ -37,6 +37,7 @@
 #include <iostream>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <fcntl.h>
 
 #include "TunnelTCP.hpp"
 

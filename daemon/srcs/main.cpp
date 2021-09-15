@@ -115,21 +115,20 @@ int main()
 //        }
 //    }
 
-    TunnelTCP tunnel;
+    TunnelTCP *tunnel = new TunnelTCP();
 
-    if (tunnel.init())
+    if (tunnel->init())
 		fatal("=> TunnelTCP Error Exit");
 
-	tunnel.start();
-	sleep(5);
-	tunnel.restart();
-	sleep(5);
-	tunnel.restart();
-	sleep(5);
-	tunnel.restart();
-	sleep(5);
+	tunnel->start();
+//	sleep(5);
+//	tunnel.restart();
+//	sleep(5);
+//	tunnel.restart();
+//	sleep(5);
+//	tunnel.restart();
+//	sleep(5);
 	std::cout << "[Main]: Check if all is working normaly" << std::endl;
-
 
 //    skeleton_daemon();
 //    while (1)
@@ -144,7 +143,6 @@ int main()
 //    syslog (LOG_NOTICE, "First daemon terminated.");
 //    closelog();
 //
-
 	while (1); // Infinite loop
 	return EXIT_SUCCESS;
 	skeleton_daemon();

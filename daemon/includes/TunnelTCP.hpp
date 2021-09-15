@@ -44,9 +44,7 @@ private:
 	std::thread *_thread;
 	bool _thread_state;
 
-	fd_set _curr_set;
-	fd_set _rd_set;
-	fd_set _wr_set;
+
 
 	char _reception_buffer[BUFFER_SIZE];
 	char _emission_buffer[BUFFER_SIZE];

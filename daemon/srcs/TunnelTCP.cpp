@@ -38,15 +38,16 @@ t_tunnel_tcp_error TunnelTCP::init() {
 	int on = 1;
 	std::cout << "[TunnelTCP]: Initialize connection" << std::endl;
 
+	bzero(&_address, sizeof(_address));
 	_address.sin_family = AF_INET;
-	_address.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
+	_address.sin_addr.s_addr = htonl(2130706433);
 	_address.sin_port = htons(_port);
 
 	if ((_socket = socket(AF_INET, SOCK_STREAM, 0)) < 0)
 		return (setError("Socket initialization failed", SOCKET_ERR));
 	if (setsockopt(_socket, SOL_SOCKET, SO_REUSEADDR, &on,sizeof(on)))
 		return (setError("Socket options initialization failed", SOCKOPT_ERR));
-	if (bind(_socket, (sockaddr *)&_address, sizeof(_address)) < 0)
+	if (bind(_socket, (const struct sockaddr *)&_address, sizeof(_address)) < 0)
 		return (setError("Bind socket failed", BIND_ERR));
 	if (listen(_socket, 0) < 0)
 		return (setError("Start listening failed", LISTEN_ERR));
@@ -77,44 +78,54 @@ void TunnelTCP::restart() {
 
 // Function called by thread for handle connections
 void TunnelTCP::run() {
+	fd_set curr_set;
+	fd_set rd_set;
+	fd_set wr_set;
 	int new_fd;
-	struct timeval timeout;
-
-	timeout.tv_sec = 0;
-	timeout.tv_usec = 100;
 
 	(void) _emission_buffer;
 
-	FD_SET(_socket, &_curr_set);
+	fcntl(_socket, F_SETFL, O_NONBLOCK);
+
+	FD_ZERO(&curr_set);
+	FD_SET(_socket, &curr_set);
 	while (_thread_state) {
-		_rd_set = _wr_set = _curr_set;
-		if (select(FD_SETSIZE, &_rd_set, &_wr_set, NULL, &timeout) < 0)
+		wr_set = rd_set = curr_set;
+		if (select(FD_SETSIZE + 1, &rd_set, &wr_set, NULL, NULL) < 0)
 			continue;
-		for (int fd = 0; fd < FD_SETSIZE; fd++)
-			if (FD_ISSET(fd, &_rd_set)) {
+		for (int fd = 0; fd <= FD_SETSIZE; fd++) {
+			if (FD_ISSET(fd, &rd_set)) {
+				std::cout << "[TunnelTCP]: " << fd << " is in rd_set" << std::endl;
 				if (fd == _socket) {
 					std::cout << "[TunnelTCP]: Client just arrived" << std::endl;
 					if ((new_fd = accept(_socket, NULL, NULL)) < 0) {
 						setError("Accept connection failed", ACCEPT_ERR);
 						stop();
 					}
-					FD_SET(fd, &_curr_set);
+					FD_SET(new_fd, &curr_set);
+					break;
 				} else {
-					if (recv(_socket, _reception_buffer, BUFFER_SIZE, 0) <= 0) {
+					if (recv(fd, _reception_buffer, BUFFER_SIZE, 0) <= 0) {
 						std::cout << "[TunnelTCP]: Client just left" << std::endl;
-						FD_CLR(fd, &_curr_set);
+						FD_CLR(fd, &curr_set);
+						close(fd);
+						break;
 					} else {
-						// Treat data
 						std::cout << "[TunnelTCP]: Treat data" << std::endl;
 						send(fd, _reception_buffer, strlen(_reception_buffer), 0);
 					}
 				}
 			}
+		}
 	}
-	FD_ZERO(&_curr_set);
+	for (int fd = 0; fd <= FD_SETSIZE; fd++)
+		if (FD_ISSET(fd, &curr_set))
+			close(fd);
 }
 
 // Destructor
 TunnelTCP::~TunnelTCP() {
+	stop();
 	close(_socket);
+	std::cout << "[TunnelTCP]: Destroyer called" << std::endl;
 }
