@@ -2,10 +2,13 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
 
 SET(CMAKE_CXX_STANDARD 23)
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
-
 PROJECT(taskmaster_daemon C CXX)
+
+SET(THREADS_PREFER_PTHREAD_FLAG ON)
+FIND_PACKAGE(Threads REQUIRED)
 
 INCLUDE_DIRECTORIES(./includes)
 file(GLOB SRCS "./srcs/*.cpp")
 
 ADD_EXECUTABLE(taskmaster_daemon ${SRCS} srcs/TunnelTCP.cpp includes/TunnelTCP.hpp)
+TARGET_LINK_LIBRARIES(taskmaster_daemon PRIVATE Threads::Threads)
