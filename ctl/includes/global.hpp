@@ -13,6 +13,18 @@
 #ifndef GLOBAL_HPP
 #define GLOBAL_HPP
 
+//------------
+// DEFINES
+//------------
+#define TUNNEL_PORT 8081
+#define BUFFER_SIZE 4096
+#define ERR_FATAL "Fatal error"
+
+//------------
+// MACROS :
+//------------
+#define DEFAULT() std::cout << "type help <command>" << std::endl
+
 #include <unordered_map>
 #include <exception>
 #include <iostream>
@@ -21,9 +33,12 @@
 #include <vector>
 #include <string>
 #include <regex>
+#include <thread>
 
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 //-----------
 // LIBRARY (parsing) :
@@ -34,18 +49,7 @@
 // CLASS :
 //-----------
 #include "JsonReader.hpp"
-
-//------------
-// MACROS :
-//------------
-#define DEFAULT() std::cout << "type help <command>" << std::endl
-
-//------------
-// DEFINES
-//------------
-#define TUNNEL_PORT 4
-
-#define ERR_FATAL "Fatal error"
+#include "TunnelTCP.hpp"
 
 typedef enum e_command_type {
     HELP,
@@ -86,5 +90,7 @@ std::vector<std::string> split(const std::string &chaine, char delim);
 t_command_type getCommandType(std::string command);
 std::string getFileContent(std::string path);
 void remove_unquoted_spaces(std::string &str);
+
+void fatal(std::string err);
 
 #endif

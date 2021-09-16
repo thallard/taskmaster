@@ -11,5 +11,5 @@ FIND_PACKAGE(Threads REQUIRED)
 INCLUDE_DIRECTORIES(./includes)
 file(GLOB SRCS "./srcs/*.cpp")
 
-ADD_EXECUTABLE(taskmaster_ctl ${SRCS} includes/JsonReader.hpp srcs/JsonReader.cpp)
+ADD_EXECUTABLE(taskmaster_ctl ${SRCS})
 TARGET_LINK_LIBRARIES(taskmaster_ctl PRIVATE Threads::Threads)

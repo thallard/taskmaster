@@ -44,36 +44,20 @@ void interpret_command(std::vector<std::string> tokens) {
 }
 
 int main() {
-    int sockfd;
-    sockaddr_in addr;
+    TunnelTCP *tunnel;
 
-    addr.sin_family = AF_INET; // Adress ip only
-    addr.sin_addr.s_addr = htonl(2130706433); // 127.0.0.1
-    addr.sin_port = htons(TUNNEL_PORT); // Defined in global.h
+    tunnel = new TunnelTCP();
+    if (tunnel->init())
+        fatal("=> TunnelTCP Error Exit");
+    tunnel->start();
 
-    if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0) // Create socket
-        fatal(ERR_FATAL);
-    if ((bind(sockfd, (sockaddr*)&addr, sizeof(addr))) < 0) // Bind socket to address + port
-        fatal(ERR_FATAL);
-    if ((listen(sockfd, 0)) < 0) // Start communication
-        fatal(ERR_FATAL);
-    std::cout << "Communication open :)" << std::endl;
+    while (1) {
+        std::string cmd;
 
-    // std::string command;
-    // std::vector<std::string> tokens;
-
-    // while (1) {
-    //     std::cout << "\033[32;1m> \033[0m";
-    //     getline(std::cin, command);
-    //     if (!std::regex_match(command, std::regex("^[a-zA-Z_\\s]*$")))
-    //         DEFAULT();
-    //     else if (command != "")
-    //         interpret_command(split(command, ' '));
-    // }
-
-//    json::jobject object = JsonReader::parseFile("../../configs/commands.json");
-//    std::cout << json::jobject::parse(object.get("help")).get("description") << std::endl;
-//    std::cout << JsonReader::stringify(object) << std::endl;
+        std::cin >> cmd;
+        std::cout << "Add data [" << cmd << "]" << std::endl;
+        tunnel->addData(cmd);
+    }
 
     return (0);
 }
