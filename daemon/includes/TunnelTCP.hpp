@@ -31,7 +31,6 @@ public:
 	void run();
 
     ~TunnelTCP();
-
 private:
     // Private functions
     t_tunnel_tcp_error setError(std::string error, t_tunnel_tcp_error error_type);
@@ -44,12 +43,13 @@ private:
 	std::thread *_thread;
 	bool _thread_state;
 
-
-
 	char _reception_buffer[BUFFER_SIZE];
-	char _emission_buffer[BUFFER_SIZE];
+    std::map<int, std::string> _emission_buffer;
 
     t_tunnel_tcp_error _error;
+
+    void sendData(int fd);
+    void addData(int fd, const std::string);
 };
 
 

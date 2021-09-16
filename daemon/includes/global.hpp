@@ -30,6 +30,7 @@
 #include <syslog.h>
 // TODO Faire du c++ et pas du c <3
 
+#include <map>
 #include <thread>
 #include <vector>
 #include <csignal>

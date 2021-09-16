@@ -76,6 +76,32 @@ void TunnelTCP::restart() {
 	start();
 }
 
+/**
+ * @brief Add data to client buffer
+ *
+ * @param fd
+ * @param data
+ */
+void TunnelTCP::addData(int fd, const std::string data) {
+    auto itr = _emission_buffer.find(fd);
+    if (itr != _emission_buffer.end())
+        itr->second += data;
+}
+
+/**
+ * @brief Send data to client
+ *
+ * @param fd
+ */
+void TunnelTCP::sendData(int fd) {
+    auto itr = _emission_buffer.find(fd);
+    if (itr != _emission_buffer.end() && !itr->second.empty()) {
+        std::cout << "[TunnelTCP]: Send : [" << itr->second << "]" << std::endl;
+        size_t len = send(fd, itr->second.c_str(), strlen(itr->second.c_str()), 0);
+        itr->second = itr->second.substr(len);
+    }
+}
+
 // Function called by thread for handle connections
 void TunnelTCP::run() {
 	fd_set curr_set;
@@ -93,7 +119,7 @@ void TunnelTCP::run() {
 		wr_set = rd_set = curr_set;
 		if (select(FD_SETSIZE + 1, &rd_set, &wr_set, NULL, NULL) < 0)
 			continue;
-		for (int fd = 0; fd <= FD_SETSIZE; fd++) {
+		for (int fd = 0; fd < FD_SETSIZE; fd++) {
 			if (FD_ISSET(fd, &rd_set)) {
 				std::cout << "[TunnelTCP]: " << fd << " is in rd_set" << std::endl;
 				if (fd == _socket) {
@@ -103,19 +129,26 @@ void TunnelTCP::run() {
 						stop();
 					}
 					FD_SET(new_fd, &curr_set);
+                    _emission_buffer.insert(std::pair<int, std::string>(new_fd, ""));
 					break;
 				} else {
+                    bzero(_reception_buffer, BUFFER_SIZE);
 					if (recv(fd, _reception_buffer, BUFFER_SIZE, 0) <= 0) {
 						std::cout << "[TunnelTCP]: Client just left" << std::endl;
 						FD_CLR(fd, &curr_set);
+                        std::cout << "[TunnelTCP]: Clear client [" << fd << "]" << std::endl;
+                        _emission_buffer.erase(fd);
 						close(fd);
 						break;
 					} else {
-						std::cout << "[TunnelTCP]: Treat data" << std::endl;
-						send(fd, _reception_buffer, strlen(_reception_buffer), 0);
+						std::cout << "[TunnelTCP]: Receive : [" << _reception_buffer << "]" << std::endl;
+                        addData(fd, "pong\n");
+                        // TODO Treat data
 					}
 				}
 			}
+            if (FD_ISSET(fd, &wr_set))
+                sendData(fd);
 		}
 	}
 	for (int fd = 0; fd <= FD_SETSIZE; fd++)
