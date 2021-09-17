@@ -28,10 +28,13 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <syslog.h>
+
+
 // TODO Faire du c++ et pas du c <3
 
 #include <map>
 #include <thread>
+#include <list>
 #include <vector>
 #include <csignal>
 #include <cstring>

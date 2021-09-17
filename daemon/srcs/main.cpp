@@ -1,9 +1,3 @@
-/*
- * daemonize.c
- * This example daemonizes a process, writes a few log messages,
- * sleeps 20 seconds and terminates afterwards.
- */
-
 #include "global.hpp"
 
 /**
@@ -86,6 +80,8 @@ int main()
 //	sleep(5);
 	std::cout << "[Main]: Check if all is working normaly" << std::endl;
 
+
+	// ADD WHEN DAEMON WILL WORK
 //    skeleton_daemon();
 //    while (1)
 //    {
@@ -99,7 +95,9 @@ int main()
 //    syslog (LOG_NOTICE, "First daemon terminated.");
 //    closelog();
 //
-	while (1); // Infinite loop
+	while (1) {
+
+	    return 1;
+	} // Infinite loop
 	return EXIT_SUCCESS;
-	skeleton_daemon();
 }
