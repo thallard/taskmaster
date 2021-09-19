@@ -1,0 +1,3 @@
+/Users/hosra/Desktop/42/taskmaster/daemon/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/hosra/Desktop/42/taskmaster/daemon/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/hosra/Desktop/42/taskmaster/daemon/cmake-build-debug/CMakeFiles/taskmaster_daemon.dir
