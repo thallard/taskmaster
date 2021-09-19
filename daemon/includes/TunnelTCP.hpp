@@ -2,8 +2,8 @@
 // Created by Guillaume on 12/09/2021.
 //
 
-#ifndef TASKMASTER_DAEMON_TUNNELTCP_HPP
-#define TASKMASTER_DAEMON_TUNNELTCP_HPP
+#ifndef TASKMASTER_DAEMON_TUNNEL_TCP_HPP
+#define TASKMASTER_DAEMON_TUNNEL_TCP_HPP
 
 #include "global.hpp"
 
@@ -13,7 +13,8 @@ typedef enum e_tunnel_tcp_error {
 	SOCKET_ERR,
     BIND_ERR,
     LISTEN_ERR,
-	ACCEPT_ERR
+	ACCEPT_ERR,
+	SOCKOPT_ERR
 } t_tunnel_tcp_error;
 
 class TunnelTCP {
@@ -26,6 +27,7 @@ public:
     e_tunnel_tcp_error init();
     void start();
     void stop();
+	void restart();
 	void run();
 
     ~TunnelTCP();
@@ -41,14 +43,15 @@ private:
 	std::thread *_thread;
 	bool _thread_state;
 
-	fd_set _curr_set;
-	fd_set _rd_set;
-	fd_set _wr_set;
-
 	char _reception_buffer[BUFFER_SIZE];
-	
+
+    std::map<int, std::string> _emission_buffer;
+
     t_tunnel_tcp_error _error;
+
+    void sendData(int fd);
+    void addData(int fd, const std::string);
 };
 
 
-#endif //TASKMASTER_DAEMON_TUNNELTCP_HPP
+#endif //TASKMASTER_DAEMON_TUNNEL_TCP_HPP

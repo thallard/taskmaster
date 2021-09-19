@@ -1,0 +1,1 @@
+taskkill /IM "taskmaster_daemon.exe" /F

@@ -1,9 +1,3 @@
-/*
- * daemonize.c
- * This example daemonizes a process, writes a few log messages,
- * sleeps 20 seconds and terminates afterwards.
- */
-
 #include "global.hpp"
 
 /**
@@ -71,79 +65,23 @@ static void skeleton_daemon()
 
 int main()
 {
-//    bool loop;
-//    int sockfd;
-//    sockaddr_in addr;
-//    char buffer[BUFFER_SIZE];
-//    fd_set rd_set, wr_set, curr_set;
-//
-//    addr.sin_family = AF_INET; // Adress ip only
-//    addr.sin_addr.s_addr = htonl(2130706433); // 127.0.0.1
-//    addr.sin_port = htons(TUNNEL_PORT); // Defined in global.h
-//
-//    if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0) // Create socket
-//        fatal(ERR_FATAL);
-//    if ((bind(sockfd, (sockaddr*)&addr, sizeof(addr))) < 0) // Bind socket to address + port
-//        fatal(ERR_FATAL);
-//    if ((listen(sockfd, 0)) < 0) // Start communication
-//        fatal(ERR_FATAL);
-//    std::cout << "Communication open :)" << std::endl;
-//
-//    loop = true;
-//    FD_ZERO(&curr_set);
-//    FD_SET(sockfd, &curr_set);
-//    bzero(&buffer, BUFFER_SIZE);
-//    while (loop) {
-//        rd_set = wr_set = curr_set;
-//        if (select(FD_SETSIZE, &rd_set, &wr_set, NULL, NULL) < 0)
-//            continue;
-//        for (int fd = 0; fd < FD_SETSIZE; ++fd) {
-//            if (FD_ISSET(fd, &rd_set)) {
-//                if (fd == sockfd) {
-//                    // New connection
-//                    FD_SET(fd, &curr_set);
-//                    std::cout << "New connection" << std::endl;
-//                } else {
-//                    if (recv(fd, buffer, BUFFER_SIZE, 0) <= 0) {
-//                        FD_CLR(fd, &curr_set);
-//                    } else {
-//                        // Treat response
-//                        std::cout << "Treat response" << std::endl;
-//                    }
-//                }
-//            }
-//        }
-//    }
+    TunnelTCP *tunnel = new TunnelTCP();
 
-    TunnelTCP tunnel;
-
-    if (tunnel.init())
+    if (tunnel->init())
 		fatal("=> TunnelTCP Error Exit");
 
-	std::cout << "start thread" << std::endl;
-	tunnel.start();
-	sleep(5);
-	tunnel.stop();
-	std::cout << "stopped thread" << std::endl;
-	sleep(3);
-	std::cout << "start thread" << std::endl;
-	tunnel.start();
-	sleep(5);
-	tunnel.stop();
-	std::cout << "stopped thread" << std::endl;
-	sleep(3);
-	std::cout << "start thread" << std::endl;
-	tunnel.start();
-	sleep(5);
-	tunnel.stop();
-	std::cout << "stopped thread" << std::endl;
-	sleep(3);
-	std::cout << "start thread" << std::endl;
-	tunnel.start();
-	sleep(5);
-	std::cout << "end" << std::endl;
+	tunnel->start();
+//	sleep(5);
+//	tunnel.restart();
+//	sleep(5);
+//	tunnel.restart();
+//	sleep(5);
+//	tunnel.restart();
+//	sleep(5);
+	std::cout << "[Main]: Check if all is working normaly" << std::endl;
 
 
+	// ADD WHEN DAEMON WILL WORK
 //    skeleton_daemon();
 //    while (1)
 //    {
@@ -157,6 +95,9 @@ int main()
 //    syslog (LOG_NOTICE, "First daemon terminated.");
 //    closelog();
 //
-    return EXIT_SUCCESS;
-    skeleton_daemon();
+	while (1) {
+
+	    return 1;
+	} // Infinite loop
+	return EXIT_SUCCESS;
 }

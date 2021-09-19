@@ -3,10 +3,13 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
 SET(CMAKE_CXX_STANDARD 23)
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
 SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-
 PROJECT(taskmaster_ctl C CXX)
+
+SET(THREADS_PREFER_PTHREAD_FLAG ON)
+FIND_PACKAGE(Threads REQUIRED)
 
 INCLUDE_DIRECTORIES(./includes)
 file(GLOB SRCS "./srcs/*.cpp")
 
-ADD_EXECUTABLE(taskmaster_ctl ${SRCS} includes/JsonReader.hpp srcs/JsonReader.cpp)
+ADD_EXECUTABLE(taskmaster_ctl ${SRCS})
+TARGET_LINK_LIBRARIES(taskmaster_ctl PRIVATE Threads::Threads)
