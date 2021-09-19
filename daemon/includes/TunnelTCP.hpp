@@ -46,8 +46,7 @@ private:
 	fd_set _wr_set;
 
 	char _reception_buffer[BUFFER_SIZE];
-	char _emission_buffer[BUFFER_SIZE];
-
+	
     t_tunnel_tcp_error _error;
 };
 
