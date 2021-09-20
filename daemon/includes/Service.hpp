@@ -14,11 +14,17 @@ private:
     std::string _cmd;
     std::string _umask;
     std::string _chmod;
-protected:
 
 public:
-   std::string const &getName() { return _name; }
+    Service();
+    ~Service();
+    Service(Service const & ref);
+    Service &operator=(Service const & ref);
+    // Getters
+    std::string const &getName() const { return _name; }
 
+    // Setters
+    void setName(std::string const & name) { _name = name; }
 };
 
 

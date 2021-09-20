@@ -44,6 +44,7 @@ private:
 	bool _thread_state;
 
 	char _reception_buffer[BUFFER_SIZE];
+
     std::map<int, std::string> _emission_buffer;
 
     t_tunnel_tcp_error _error;
