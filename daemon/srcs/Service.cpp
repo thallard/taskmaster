@@ -4,10 +4,10 @@
 
 #include "Service.hpp"
 
-
 // Default constructor
 Service::Service()
 {
+    _thread = nullptr;
 }
 
 Service::~Service()
@@ -34,16 +34,22 @@ Service &Service::operator=(const Service &ref)
     return *this;
 }
 
-// Thread function called by ServiceManager, create an another thread and launch the service
+// Threaded function called by ServiceManager, create an another thread for the service
 void Service::runProcess()
 {
 
     std::cout <<  "trhead" << std::endl;
-    //_thread = new thread(Service::launchProcess, this);
+    _thread = new std::thread(&Service::launchProcess, this);
+    sleep(1);
+    _thread->join();
+    std::cout << "kill Service thread\n";
 }
 
-void *Service::launchProcess()
+// Threaded function called by runProcess, launch the service
+void Service::launchProcess()
 {
+
     std::cout << "oui" << std::endl;
-    return nullptr;
+
+
 }

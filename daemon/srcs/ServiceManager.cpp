@@ -7,6 +7,7 @@
 // Default constructor
 ServiceManager::ServiceManager()
 {
+
    _service = nullptr;
 }
 
@@ -41,8 +42,10 @@ ServiceManager &ServiceManager::operator=(const ServiceManager &ref)
 // Run a specific program and start to manage it
 void ServiceManager::runService()
 {
-    _thread = new std::thread(&Service::runProcess, this);
-
+    _thread = new std::thread(&Service::runProcess, *_service);
+    sleep(10);
+    _thread->join();
+    std::cout << "kill ServiceManager thread\n";
 }
 
 // Return the Service

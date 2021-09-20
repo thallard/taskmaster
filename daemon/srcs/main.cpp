@@ -11,7 +11,7 @@ void fatal(std::string err) {
     exit(1);
 }
 
-static void skeleton_daemon()
+ void skeleton_daemon()
 {
     pid_t pid;
 
