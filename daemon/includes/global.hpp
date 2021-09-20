@@ -45,4 +45,7 @@
 
 #include "TunnelTCP.hpp"
 
+// Avoid std:: before each STD/STL functions
+using namespace std;
+
 #endif

@@ -1,3 +1,4 @@
+#include <Execution.hpp>
 #include "global.hpp"
 
 /**
@@ -95,6 +96,12 @@ int main()
 //    syslog (LOG_NOTICE, "First daemon terminated.");
 //    closelog();
 //
+    auto *exec = new Execution();
+    auto *service = new Service();
+    service->setName("nginx");
+    auto *manager = new ServiceManager(service);
+    exec->addManager(manager);
+    manager->runService();
 	while (1) {
 
 	    return 1;

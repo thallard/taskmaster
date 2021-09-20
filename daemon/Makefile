@@ -48,19 +48,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/local/Cellar/cmake/3.21.2/bin/cmake
+CMAKE_COMMAND = /Users/thallard/.brew/Cellar/cmake/3.21.2/bin/cmake
 
 # The command to remove a file.
-RM = /usr/local/Cellar/cmake/3.21.2/bin/cmake -E rm -f
+RM = /Users/thallard/.brew/Cellar/cmake/3.21.2/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/hosra/Desktop/42/taskmaster/daemon
+CMAKE_SOURCE_DIR = /Users/thallard/Documents/42/taskmaster/daemon
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/hosra/Desktop/42/taskmaster/daemon
+CMAKE_BINARY_DIR = /Users/thallard/Documents/42/taskmaster/daemon
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -68,7 +68,7 @@ CMAKE_BINARY_DIR = /Users/hosra/Desktop/42/taskmaster/daemon
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/local/Cellar/cmake/3.21.2/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/Users/thallard/.brew/Cellar/cmake/3.21.2/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -78,7 +78,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/local/Cellar/cmake/3.21.2/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/Users/thallard/.brew/Cellar/cmake/3.21.2/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -87,9 +87,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/hosra/Desktop/42/taskmaster/daemon/CMakeFiles /Users/hosra/Desktop/42/taskmaster/daemon//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/thallard/Documents/42/taskmaster/daemon/CMakeFiles /Users/thallard/Documents/42/taskmaster/daemon//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/hosra/Desktop/42/taskmaster/daemon/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/thallard/Documents/42/taskmaster/daemon/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -128,6 +128,78 @@ taskmaster_daemon: cmake_check_build_system
 taskmaster_daemon/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/taskmaster_daemon.dir/build.make CMakeFiles/taskmaster_daemon.dir/build
 .PHONY : taskmaster_daemon/fast
+
+srcs/Execution.o: srcs/Execution.cpp.o
+.PHONY : srcs/Execution.o
+
+# target to build an object file
+srcs/Execution.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/taskmaster_daemon.dir/build.make CMakeFiles/taskmaster_daemon.dir/srcs/Execution.cpp.o
+.PHONY : srcs/Execution.cpp.o
+
+srcs/Execution.i: srcs/Execution.cpp.i
+.PHONY : srcs/Execution.i
+
+# target to preprocess a source file
+srcs/Execution.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/taskmaster_daemon.dir/build.make CMakeFiles/taskmaster_daemon.dir/srcs/Execution.cpp.i
+.PHONY : srcs/Execution.cpp.i
+
+srcs/Execution.s: srcs/Execution.cpp.s
+.PHONY : srcs/Execution.s
+
+# target to generate assembly for a file
+srcs/Execution.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/taskmaster_daemon.dir/build.make CMakeFiles/taskmaster_daemon.dir/srcs/Execution.cpp.s
+.PHONY : srcs/Execution.cpp.s
+
+srcs/Service.o: srcs/Service.cpp.o
+.PHONY : srcs/Service.o
+
+# target to build an object file
+srcs/Service.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/taskmaster_daemon.dir/build.make CMakeFiles/taskmaster_daemon.dir/srcs/Service.cpp.o
+.PHONY : srcs/Service.cpp.o
+
+srcs/Service.i: srcs/Service.cpp.i
+.PHONY : srcs/Service.i
+
+# target to preprocess a source file
+srcs/Service.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/taskmaster_daemon.dir/build.make CMakeFiles/taskmaster_daemon.dir/srcs/Service.cpp.i
+.PHONY : srcs/Service.cpp.i
+
+srcs/Service.s: srcs/Service.cpp.s
+.PHONY : srcs/Service.s
+
+# target to generate assembly for a file
+srcs/Service.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/taskmaster_daemon.dir/build.make CMakeFiles/taskmaster_daemon.dir/srcs/Service.cpp.s
+.PHONY : srcs/Service.cpp.s
+
+srcs/ServiceManager.o: srcs/ServiceManager.cpp.o
+.PHONY : srcs/ServiceManager.o
+
+# target to build an object file
+srcs/ServiceManager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/taskmaster_daemon.dir/build.make CMakeFiles/taskmaster_daemon.dir/srcs/ServiceManager.cpp.o
+.PHONY : srcs/ServiceManager.cpp.o
+
+srcs/ServiceManager.i: srcs/ServiceManager.cpp.i
+.PHONY : srcs/ServiceManager.i
+
+# target to preprocess a source file
+srcs/ServiceManager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/taskmaster_daemon.dir/build.make CMakeFiles/taskmaster_daemon.dir/srcs/ServiceManager.cpp.i
+.PHONY : srcs/ServiceManager.cpp.i
+
+srcs/ServiceManager.s: srcs/ServiceManager.cpp.s
+.PHONY : srcs/ServiceManager.s
+
+# target to generate assembly for a file
+srcs/ServiceManager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/taskmaster_daemon.dir/build.make CMakeFiles/taskmaster_daemon.dir/srcs/ServiceManager.cpp.s
+.PHONY : srcs/ServiceManager.cpp.s
 
 srcs/TunnelTCP.o: srcs/TunnelTCP.cpp.o
 .PHONY : srcs/TunnelTCP.o
@@ -186,6 +258,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... taskmaster_daemon"
+	@echo "... srcs/Execution.o"
+	@echo "... srcs/Execution.i"
+	@echo "... srcs/Execution.s"
+	@echo "... srcs/Service.o"
+	@echo "... srcs/Service.i"
+	@echo "... srcs/Service.s"
+	@echo "... srcs/ServiceManager.o"
+	@echo "... srcs/ServiceManager.i"
+	@echo "... srcs/ServiceManager.s"
 	@echo "... srcs/TunnelTCP.o"
 	@echo "... srcs/TunnelTCP.i"
 	@echo "... srcs/TunnelTCP.s"

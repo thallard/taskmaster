@@ -116,14 +116,14 @@ void TunnelTCP::run() {
 	FD_SET(_socket, &curr_set);
 	while (_thread_state) {
 		wr_set = rd_set = curr_set;
-		if (select(FD_SETSIZE + 1, &rd_set, &wr_set, NULL, NULL) < 0)
+		if (select(FD_SETSIZE + 1, &rd_set, &wr_set, nullptr, nullptr) < 0)
 			continue;
 		for (int fd = 0; fd < FD_SETSIZE; fd++) {
 			if (FD_ISSET(fd, &rd_set)) {
 				std::cout << "[TunnelTCP]: " << fd << " is in rd_set" << std::endl;
 				if (fd == _socket) {
 					std::cout << "[TunnelTCP]: Client just arrived" << std::endl;
-					if ((new_fd = accept(_socket, NULL, NULL)) < 0) {
+					if ((new_fd = accept(_socket, nullptr, nullptr)) < 0) {
 						setError("Accept connection failed", ACCEPT_ERR);
 						stop();
 					}

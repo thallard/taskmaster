@@ -13,22 +13,22 @@ Execution::~Execution() {
 
 }
 
-// Add a new service in the list
-bool Execution::addService(Service *service) {
+// Add a new ServiceManager in the list
+bool Execution::addManager(ServiceManager *service) {
     if (service)
-        _services.push_back(service);
+        _managers.push_back(service);
     else
         return false;
     return true;
 }
 
 // Search for a service and delete it
-bool Execution::delService(std::string const & name) {
-    for (auto begin = _services.begin(); begin != _services.end(); begin++)
+bool Execution::delManager(std::string const & name) {
+    for (auto begin = _managers.begin(); begin != _managers.end(); begin++)
     {
-        if ((*begin)->getName() == name)
+        if ((*begin)->getService().getName() == name)
         {
-            _services.erase(begin);
+            _managers.erase(begin);
             delete *begin;
             return true;
         }
@@ -37,7 +37,7 @@ bool Execution::delService(std::string const & name) {
 }
 
 // Return number of services stored
-int Execution::getServicesCount()
+int Execution::getManagersCount()
 {
-    return _services.size();
+    return _managers.size();
 }

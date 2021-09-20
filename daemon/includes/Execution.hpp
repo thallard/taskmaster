@@ -6,23 +6,25 @@
 #define TASKMASTER_DAEMON_EXECUTION_HPP
 #include "global.hpp"
 #include "Service.hpp"
+#include "ServiceManager.h"
 
+class ServiceManager;
 class Service;
 
 //TODO: Need to rename the class
 class Execution {
 private:
-    std::list<Service *> _services;
+    std::list<ServiceManager *> _managers;
     std::list<std::thread *> _threads;
 
 public:
     Execution();
     ~Execution();
 
-    bool addService(Service *);
-    bool delService(std::string const & name);
+    bool addManager(ServiceManager *);
+    bool delManager(std::string const & name);
 
-    int getServicesCount();
+    int getManagersCount();
 
 };
 

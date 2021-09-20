@@ -9,7 +9,7 @@
 
 class Service {
 private:
-    std::thread *_thread;
+    std::thread *_thread{};
     std::string _name;
     std::string _cmd;
     std::string _umask;
@@ -20,11 +20,17 @@ public:
     ~Service();
     Service(Service const & ref);
     Service &operator=(Service const & ref);
+
     // Getters
     std::string const &getName() const { return _name; }
 
     // Setters
     void setName(std::string const & name) { _name = name; }
+
+    // Core functions
+    static void *launchProcess();
+    static void runProcess();
+
 };
 
 
