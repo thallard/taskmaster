@@ -78,7 +78,6 @@ void TunnelTCP::start() {
 /**
  * @brief Add data to client buffer
  *
- * @param fd
  * @param data
  */
 void TunnelTCP::addData(const std::string &data) {
