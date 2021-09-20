@@ -37,12 +37,13 @@ Service &Service::operator=(const Service &ref)
 // Thread function called by ServiceManager, create an another thread and launch the service
 void Service::runProcess()
 {
-    std::cout <<  "trhead" << endl;
+
+    std::cout <<  "trhead" << std::endl;
     //_thread = new thread(Service::launchProcess, this);
 }
 
 void *Service::launchProcess()
 {
-    cout << "oui" << endl;
+    std::cout << "oui" << std::endl;
     return nullptr;
 }

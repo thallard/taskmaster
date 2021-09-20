@@ -104,7 +104,6 @@ int main()
     manager->runService();
 	while (1) {
 
-	    return 1;
-	} // Infinite loop
+	}// Infinite loop
 	return EXIT_SUCCESS;
 }

@@ -29,7 +29,7 @@ public:
 
     // Core functions
     static void *launchProcess();
-    static void runProcess();
+    void runProcess();
 
 };
 

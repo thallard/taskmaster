@@ -5,8 +5,6 @@
 #ifndef TASKMASTER_DAEMON_EXECUTION_HPP
 #define TASKMASTER_DAEMON_EXECUTION_HPP
 #include "global.hpp"
-#include "Service.hpp"
-#include "ServiceManager.h"
 
 class ServiceManager;
 class Service;

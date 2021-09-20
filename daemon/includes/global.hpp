@@ -44,8 +44,8 @@
 #include <fcntl.h>
 
 #include "TunnelTCP.hpp"
-
-// Avoid std:: before each STD/STL functions
-using namespace std;
+#include "Service.hpp"
+#include "ServiceManager.hpp"
+#include "Execution.hpp"
 
 #endif

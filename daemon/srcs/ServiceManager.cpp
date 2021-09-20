@@ -2,7 +2,7 @@
 // Created by Thomas Hallard-clot on 9/20/21.
 //
 
-#include "ServiceManager.h"
+#include "ServiceManager.hpp"
 
 // Default constructor
 ServiceManager::ServiceManager()
@@ -41,6 +41,25 @@ ServiceManager &ServiceManager::operator=(const ServiceManager &ref)
 // Run a specific program and start to manage it
 void ServiceManager::runService()
 {
-    _thread = new thread(&Service::runProcess, this);
-    _thread->join();
+    _thread = new std::thread(&Service::runProcess, this);
+
 }
+
+// Return the Service
+Service const &ServiceManager::getService() const
+{
+    return *_service;
+}
+
+// Return name of the specific Service
+std::string const &ServiceManager::getServiceName() const
+{
+    return _service->getName();
+}
+
+// Set the Service
+void ServiceManager::setService(Service *service)
+{
+    _service = service;
+}
+
